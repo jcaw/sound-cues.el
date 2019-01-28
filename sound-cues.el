@@ -109,5 +109,66 @@ If sound is a string, it will assume it is already a file path."
   (play-sound `(sound :file ,file)))
 
 
+;; ---------------------------------------------------------------------
+
+
+(defvar sound-cues-registered-cues
+  '()
+  "All the sound cues currently registered.")
+
+
+(cl-defun sound-cues-add-cue (func sound)
+  "Add a sound cue to a particular function.
+
+The `SOUND' will play when the function `FUNC' completes."
+  ;; TODO: Maybe have sound cues before or after functions? Possibly on hooks?
+  (let ((registered-cue (assoc func sound-cues-registered-cues))
+        (sound-file (sound-cues--normalise-sound-file sound)))
+    (message "Registered cue: '%s'" registered-cue)
+    ;; Ensure the sound file exists.
+    (unless (file-exists-p sound-file)
+      (error "Sound file could not be found. File: '%s'" sound-file))
+
+    ;; If this function has a sound cue already, remove it and warn the user.
+    (when registered-cue
+      (display-warning
+       "sound-cues"
+       (format "Function `%s' already has a sound cue registered. Removing it. Old cue: '%s'"
+               func
+               ;; This is the data
+               (assoc 'sound (nth 1 registered-cue))))
+      (sound-cues-remove-cue func))
+
+    ;; Now add the advice.
+    (let ((advice `(lambda (&rest _)
+                     (sound-cues--play-sound
+                      ;; Pass the current value of sound-file, don't use the
+                      ;; variable.
+                      ,sound-file
+                      :block nil))))
+      (advice-add func :after advice)
+      (push (list func
+                  `((sound ,sound-file)
+                    (advice ,advice)))
+            sound-cues-registered-cues))))
+
+
+(defun sound-cues-remove-cue (func)
+  "Remove the sound cue from a particular function, `FUNC'."
+  (let* ((registered-cue (assoc func sound-cues-registered-cues))
+         (data (nth 1 registered-cue))
+         (advice-to-remove (nth 1 (assoc 'advice data))))
+    (advice-remove func advice-to-remove)
+    (setq sound-cues-registered-cues
+          (remove registered-cue sound-cues-registered-cues))))
+
+
+(defun sound-cues-remove-all-cues ()
+  "Remove all sound cues from all functions."
+  (mapc (lambda (cue)
+          (sound-cues-remove-cue (car cue)))
+        sound-cues-registered-cues))
+
+
 (provide 'sound-cues)
 ;;; sound-cues.el ends here.
