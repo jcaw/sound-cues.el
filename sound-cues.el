@@ -48,7 +48,7 @@ All sounds are licensed under Creative Commons.")
   (interactive)
   (mapc (lambda (sound)
           (message "Playing inbuilt sound: `%s'" sound)
-          (sound-cues--play-sound sound :block t)
+          (sound-cues-play-sound sound :block t)
           (sleep-for 2))
         sound-cues-inbuilt-sounds)
   (message "Done!"))
@@ -58,10 +58,10 @@ All sounds are licensed under Creative Commons.")
   "Play the `startup' sound to test that sound cues are working."
   (interactive)
   (message "Playing startup sound.")
-  (sound-cues--play-sound 'startup))
+  (sound-cues-play-sound 'startup :block nil)
 
 
-(cl-defun sound-cues--play-sound (sound &key (block nil))
+(cl-defun sound-cues-play-sound (sound &key (block nil))
   "Play some `sound'.
 
 If sound is a symbol, it will attempt to play the path of the
@@ -141,7 +141,7 @@ The `SOUND' will play when the function `FUNC' completes."
 
     ;; Now add the advice.
     (let ((advice `(lambda (&rest _)
-                     (sound-cues--play-sound
+                     (sound-cues-play-sound
                       ;; Pass the current value of sound-file, don't use the
                       ;; variable.
                       ,sound-file
