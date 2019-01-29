@@ -3,7 +3,8 @@
   ;; `sound-wav' Needs a background Powershell on Windows to get around slow
   ;; process interop and play sounds quickly.
   (require 'powershell)
-  ;; TODO: Maybe also require powershell to be available before requiring the package?
+  ;; TODO: Maybe also require powershell to be available before requiring the
+  ;; package? E.g:
   ;;   (executable-find "powershell")
   )
 
@@ -80,7 +81,10 @@ If sound is a string, it will attempt to play it as a file path.
 
 Set `:block' to `t' to block Emacs while playing the sound.
 Otherwise, the sound will be played asynchronously. Note that
-only one sound may be playing at a time."
+only one sound may be playing at a time.
+
+Please note that when Emacs is blocked while playing the sound,
+`C-g' interruption will not work."
   ;; TODO: Maybe try converting sound to symbol *then* checking membership?
   (let ((sound-file (sound-cues--normalise-sound-file sound)))
     (if block
@@ -128,7 +132,20 @@ If sound is a string, it will assume it is already a file path."
 (cl-defun sound-cues-add-cue (func sound)
   "Add a sound cue to a particular function.
 
-The `SOUND' will play when the function `FUNC' completes."
+The `SOUND' will play when the function `FUNC' completes.
+
+`SOUND' - May be an inbuilt sound (a symbol) or the path to a
+          sound file (a string).
+
+         `sound-cues-inbuilt-sounds' contains all inbuilt sounds.
+         Call M-x `sound-cues-demo-sounds' to hear all available
+         inbuilt sounds.
+
+`FUNC' - Any function (or callable). `SOUND' will be played
+         asynchronously when the function completes.
+
+Please note, only one sound can be played at a time. If one sound
+cue is already playing, other cues will be skipped."
   ;; TODO: Maybe have sound cues before or after functions? Possibly on hooks?
   (let ((registered-cue (assoc func sound-cues-registered-cues))
         (sound-file (sound-cues--normalise-sound-file sound)))
@@ -153,6 +170,7 @@ The `SOUND' will play when the function `FUNC' completes."
                       ;; Pass the current value of sound-file, don't use the
                       ;; variable.
                       ,sound-file
+                      ;; Alerts should be played asynchronously.
                       :block nil))))
       (advice-add func :after advice)
       (push (list func
