@@ -55,10 +55,18 @@ All sounds are licensed under Creative Commons.")
 
 
 (defun sound-cues-test-speakers ()
-  "Play the `startup' sound to test that sound cues are working."
+  "Test whether sound cues are working correctly.
+
+Plays the `startup' sound twice."
   (interactive)
-  (message "Playing startup sound.")
+  (message "Playing startup sound (ding dong) - blocking version.")
+  (sound-cues-play-sound 'startup :block t)
+  (message "Done - will now play non-blocking version.")
+  (sleep-for 2)
+  (message "Playing startup sound (ding dong) - non-blocking version.")
   (sound-cues-play-sound 'startup :block nil)
+  (sleep-for 4)
+  (message "You should have heard the startup sound twice. If not, something is wrong."))
 
 
 (cl-defun sound-cues-play-sound (sound &key (block nil))
