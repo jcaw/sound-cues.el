@@ -7,7 +7,7 @@ Sound cues can be attached to any function. Want to know when another package co
 
 Adding cues is easy:
 ```emacs-lisp
-(sound-cues-add-cue sound function)
+(sound-cues-add-cue function sound)
 ```
 
 The sound will then play each time `function` completes.
@@ -50,11 +50,11 @@ M-x sound-cues-test-speakers
 Add sound cues to a function with:
 ```emacs-lisp
 ;; You can use inbuilt sounds
-(sound-cues-add-cue 'success 'some-function)      ; `success' is an inbuilt sound
-(sound-cues-add-cue 'failure 'another-function)   ; `failure' is another inbuilt sound
+(sound-cues-add-cue 'some-function 'success)      ; `success' is an inbuilt sound
+(sound-cues-add-cue 'another-function 'failure)   ; `failure' is another inbuilt sound
 
 ;; Use your own sound files too
-(sound-cues-add-cue "/path/to/sound-file.wav" 'third-function)              
+(sound-cues-add-cue 'third-function "/path/to/sound-file.wav")              
 ```
 
 The cue will play when the function completes. Note that only one sound cue may be attached to each function.
