@@ -206,9 +206,9 @@ cue is already playing, other cues will be skipped."
 ;;
 ;; TODO 3: Possibly queue sound alerts so overlapping sounds still play?
 ;; TODO 2: Volume control.
-;; TODO 2: Cues on hooks.
-;; TODO 2: Make this package more robust to errors when playing sounds - don't
-;; make it crash the process flow.
+;; TODO 1: Cues on hooks.
+;; TODO 1: Make this package more robust to errors when playing sounds - don't
+;; make it crash the process flow on failure.
 
 
 (provide 'sound-cues)
