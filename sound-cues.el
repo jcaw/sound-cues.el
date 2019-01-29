@@ -209,8 +209,6 @@ cue is already playing, other cues will be skipped."
 ;; TODO 2: Cues on hooks.
 ;; TODO 2: Make this package more robust to errors when playing sounds - don't
 ;; make it crash the process flow.
-;; TODO 1: Readme
-;; TODO 1: License
 
 
 (provide 'sound-cues)
