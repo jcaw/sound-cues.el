@@ -10,7 +10,7 @@ Adding cues is easy:
 (sound-cues-add-cue sound function)
 ```
 
-The sound will then play each time the function completes.
+The sound will then play each time `function` completes.
 
 Some example uses:
 
