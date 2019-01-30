@@ -12,6 +12,7 @@
 ;;;###autoload
 (defgroup sound-cues nil
   "Play sound cues on certain events."
+  :prefix "sound-cues-"
   :group 'sound)
 
 
