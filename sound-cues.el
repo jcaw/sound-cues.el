@@ -273,6 +273,7 @@ cue is already playing, other cues will be skipped."
 ;;   3 - Might be worth implementing
 ;;
 ;; TODO 3: Possibly queue sound alerts so overlapping sounds still play?
+;; TODO 3: Text-to-speech cues (e.g. "traad finished", "traad error").
 ;; TODO 2: Volume control.
 ;; TODO 1: Cues on hooks.
 ;; TODO 1: Make this package more robust to errors when playing sounds - don't
