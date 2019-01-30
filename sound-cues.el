@@ -33,10 +33,16 @@
 
 
 (require 'cl-lib)
+;; Emacs has a built-in `play-sound' function, but it blocks. Use `sound-wav'
+;; for async sounds.
 (require 'sound-wav)
 (when (memq system-type '(windows-nt ms-dos cygwin))
-  ;; `sound-wav' Needs a background Powershell on Windows to get around slow
-  ;; process interop and play sounds quickly.
+  ;; On Windows, `sound-wav' starts a Powershell process in the background to
+  ;; get around slow process interop (sounds take a while to play otherwise).
+  ;; However, it only does this when the `powershell' package is installed - it
+  ;; will work without it.
+  ;;
+  ;; So: force require `powershell' on Windows to ensure sounds are snappy.
   (require 'powershell)
   ;; TODO: Maybe also require powershell to be available before requiring the
   ;; package? E.g:
