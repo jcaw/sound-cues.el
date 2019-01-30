@@ -254,7 +254,7 @@ cue is already playing, other cues will be skipped."
           sound-cues-registered-hook-cues)))
 
 
-(defun sound-cues-remove-cues-from-hook (hook)
+(defun sound-cues-remove-cue-from-hook (hook)
   "Remove the sound cue attached to `HOOK'."
   (let* ((registered-cue (assoc hook sound-cues-registered-hook-cues))
          (data (nth 1 registered-cue))
