@@ -9,6 +9,7 @@
   )
 
 
+;;;###autoload
 (defgroup sound-cues nil
   "Play sound cues on certain events."
   :group 'sound)
@@ -29,6 +30,7 @@
           "sounds/"))
 
 
+;;;###autoload
 (defvar sound-cues-inbuilt-sounds
   '(success
     failure
@@ -44,6 +46,7 @@
 All sounds are licensed under Creative Commons.")
 
 
+;;;###autoload
 (defun sound-cues-demo-sounds ()
   "Demo each of the inbuilt sounds."
   (interactive)
@@ -55,6 +58,7 @@ All sounds are licensed under Creative Commons.")
   (message "Done!"))
 
 
+;;;###autoload
 (defun sound-cues-test-speakers ()
   "Test whether sound cues are working correctly.
 
@@ -70,6 +74,7 @@ Plays the `startup' sound twice."
   (message "You should have heard the startup sound twice. If not, something is wrong."))
 
 
+;;;###autoload
 (cl-defun sound-cues-play-sound (sound &key (block nil))
   "Play some `sound'.
 
@@ -142,6 +147,7 @@ This function will not block - the sound will be played asynchronously."
       :block nil)))
 
 
+;;;###autoload
 (cl-defun sound-cues-add-cue (func sound)
   "Add a sound cue to a particular function.
 
@@ -185,6 +191,7 @@ cue is already playing, other cues will be skipped."
             sound-cues-registered-cues))))
 
 
+;;;###autoload
 (defun sound-cues-remove-cue (func)
   "Remove the sound cue from a particular function, `FUNC'."
   (let* ((registered-cue (assoc func sound-cues-registered-cues))
@@ -195,6 +202,7 @@ cue is already playing, other cues will be skipped."
           (remove registered-cue sound-cues-registered-cues))))
 
 
+;;;###autoload
 (defun sound-cues-remove-all-cues ()
   "Remove all sound cues from all functions (and hooks)."
   ;; Remove function cues
@@ -212,6 +220,7 @@ cue is already playing, other cues will be skipped."
   "All the sound cues currently registered on hooks.")
 
 
+;;;###autoload
 (defun sound-cues-add-cue-to-hook (hook sound)
   "Add a sound cue to some `HOOK'.
 
@@ -254,6 +263,7 @@ cue is already playing, other cues will be skipped."
           sound-cues-registered-hook-cues)))
 
 
+;;;###autoload
 (defun sound-cues-remove-cue-from-hook (hook)
   "Remove the sound cue attached to `HOOK'."
   (let* ((registered-cue (assoc hook sound-cues-registered-hook-cues))
