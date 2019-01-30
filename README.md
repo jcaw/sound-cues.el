@@ -31,8 +31,8 @@ Some example uses:
 (package-install 'quelpa)
 (require 'quelpa)
 (quelpa '(sound-cues
-          :fetcher git 
-          :url "https://github.com/jcaw/sound-cues.el"))
+          :fetcher github
+          :repo "jcaw/sound-cues.el"))
 ```
 
 Then require as normal:
