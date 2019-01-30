@@ -1,3 +1,37 @@
+;;; sound-cues.el --- Attach sound cues to events.  -*- lexical-binding: t; -*-
+
+;; Copyright (C) 2019  GitHub user "jcaw"
+
+;; Author: GitHub user "jcaw" <40725916+jcaw@users.noreply.github.com>
+;; Keywords: multimedia
+;; Modifications: Modifications can be found in the git repository:
+;;                https://github.com/jcaw/sound-cues.el
+
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+;;; Commentary:
+
+;; Sound cues can be attached to any function (or hook). Want to know when
+;; another package completes a slow, asynchronous function? Just attach a sound
+;; cue to that function. Want to know when it completes a background process?
+;; Add a sound cue to the callback function.
+;;
+;; See the README for more.
+
+;;; Code:
+
+
 (require 'sound-wav)
 (when (memq system-type '(windows-nt ms-dos cygwin))
   ;; `sound-wav' Needs a background Powershell on Windows to get around slow
