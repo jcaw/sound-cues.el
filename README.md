@@ -32,7 +32,9 @@ Some example uses:
 (require 'quelpa)
 (quelpa '(sound-cues
           :fetcher github
-          :repo "jcaw/sound-cues.el"))
+          :repo "jcaw/sound-cues.el"
+          ;; You have to explicitly download the sounds folder (and README)
+          :files ("*.el" "README.md" "sounds")))
 ```
 
 Then require as normal:
