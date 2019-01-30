@@ -162,7 +162,6 @@ cue is already playing, other cues will be skipped."
   ;; TODO: Maybe have sound cues before or after functions? Possibly on hooks?
   (let ((registered-cue (assoc func sound-cues-registered-cues))
         (sound-file (sound-cues--normalise-sound-file sound)))
-    (message "Registered cue: '%s'" registered-cue)
     ;; Ensure the sound file exists.
     (unless (file-exists-p sound-file)
       (error "Sound file could not be found. File: '%s'" sound-file))
