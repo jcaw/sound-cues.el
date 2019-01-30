@@ -129,6 +129,19 @@ If sound is a string, it will assume it is already a file path."
   "All the sound cues currently registered.")
 
 
+(defun sound-cues--construct-sound-lambda (sound-file)
+  "Construct a lambda function that plays `sound-file'.
+
+This function will not block - the sound will be played asynchronously."
+  `(lambda (&rest _)
+     (sound-cues-play-sound
+      ;; Pass the current value of sound-file, don't use the
+      ;; variable.
+      ,sound-file
+      ;; Alerts should be played asynchronously.
+      :block nil)))
+
+
 (cl-defun sound-cues-add-cue (func sound)
   "Add a sound cue to a particular function.
 
@@ -165,17 +178,11 @@ cue is already playing, other cues will be skipped."
       (sound-cues-remove-cue func))
 
     ;; Now add the advice.
-    (let ((advice `(lambda (&rest _)
-                     (sound-cues-play-sound
-                      ;; Pass the current value of sound-file, don't use the
-                      ;; variable.
-                      ,sound-file
-                      ;; Alerts should be played asynchronously.
-                      :block nil))))
-      (advice-add func :after advice)
+    (let ((play-sound-func (sound-cues--construct-sound-lambda sound-file)))
+      (advice-add func :after play-sound-func)
       (push (list func
-                  `((sound ,sound-file)
-                    (advice ,advice)))
+                  `((sound ,sound)
+                    (advice ,play-sound-func)))
             sound-cues-registered-cues))))
 
 
@@ -190,10 +197,54 @@ cue is already playing, other cues will be skipped."
 
 
 (defun sound-cues-remove-all-cues ()
-  "Remove all sound cues from all functions."
+  "Remove all sound cues from all functions (and hooks)."
+  ;; Remove function cues
   (mapc (lambda (cue)
           (sound-cues-remove-cue (car cue)))
-        sound-cues-registered-cues))
+        sound-cues-registered-cues)
+  ;; Remove cues on hooks
+  (mapc (lambda (cue)
+          (sound-cues-remove-cues-from-hook (car cue)))
+        sound-cues-registered-hook-cues))
+
+
+(defvar sound-cues-registered-hook-cues
+  '()
+  "All the sound cues currently registered on hooks.")
+
+
+(defun sound-cues-add-cue-to-hook (hook sound)
+  (let* ((registered-cue (assoc hook sound-cues-registered-hook-cues))
+         (sound-file (sound-cues--normalise-sound-file sound))
+         (play-sound-func (sound-cues--construct-sound-lambda sound-file)))
+    ;; Ensure the sound file exists.
+    (unless (file-exists-p sound-file)
+      (error "Sound file could not be found. File: '%s'" sound-file))
+
+    ;; If this function has a sound cue already, remove it and warn the user.
+    (when registered-cue
+      (display-warning
+       "sound-cues"
+       (format "Hook `%s' already has a sound cue registered. Removing it. Old cue: '%s'"
+               hook
+               ;; This is the data
+               (assoc 'sound (nth 1 registered-cue))))
+      (sound-cues-remove-cue-from-hook hook))
+    (add-hook hook play-sound-func)
+    ;; TODO: Record this hook in registered hooks.
+    (push (list hook
+                `((sound ,sound)
+                  (func ,play-sound-func)))
+          sound-cues-registered-hook-cues)))
+
+
+(defun sound-cues-remove-cues-from-hook (hook)
+  (let* ((registered-cue (assoc hook sound-cues-registered-hook-cues))
+         (data (nth 1 registered-cue))
+         (play-sound-func (nth 1 (assoc 'func data))))
+    (remove-hook hook play-sound-func)
+    (setq sound-cues-registered-hook-cues
+          (remove registered-cue sound-cues-registered-hook-cues))))
 
 
 ;; Misc TODOs
