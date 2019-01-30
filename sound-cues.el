@@ -213,6 +213,22 @@ cue is already playing, other cues will be skipped."
 
 
 (defun sound-cues-add-cue-to-hook (hook sound)
+  "Add a sound cue to some `HOOK'.
+
+`SOUND' will be played when `HOOK' is run.
+
+`SOUND' - May be an inbuilt sound (a symbol) or the path to a
+          sound file (a string).
+
+         `sound-cues-inbuilt-sounds' contains all inbuilt sounds.
+         Call M-x `sound-cues-demo-sounds' to hear all available
+         inbuilt sounds.
+
+`HOOK' - A hook. `SOUND' will be played asynchronously when the
+         hook is run.
+
+Please note, only one sound can be played at a time. If one sound
+cue is already playing, other cues will be skipped."
   (let* ((registered-cue (assoc hook sound-cues-registered-hook-cues))
          (sound-file (sound-cues--normalise-sound-file sound))
          (play-sound-func (sound-cues--construct-sound-lambda sound-file)))
@@ -229,8 +245,9 @@ cue is already playing, other cues will be skipped."
                ;; This is the data
                (assoc 'sound (nth 1 registered-cue))))
       (sound-cues-remove-cue-from-hook hook))
+
+    ;; Add lambda to the hook
     (add-hook hook play-sound-func)
-    ;; TODO: Record this hook in registered hooks.
     (push (list hook
                 `((sound ,sound)
                   (func ,play-sound-func)))
@@ -238,6 +255,7 @@ cue is already playing, other cues will be skipped."
 
 
 (defun sound-cues-remove-cues-from-hook (hook)
+  "Remove the sound cue attached to `HOOK'."
   (let* ((registered-cue (assoc hook sound-cues-registered-hook-cues))
          (data (nth 1 registered-cue))
          (play-sound-func (nth 1 (assoc 'func data))))
