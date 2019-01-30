@@ -32,6 +32,7 @@
 ;;; Code:
 
 
+(require 'cl-lib)
 (require 'sound-wav)
 (when (memq system-type '(windows-nt ms-dos cygwin))
   ;; `sound-wav' Needs a background Powershell on Windows to get around slow
