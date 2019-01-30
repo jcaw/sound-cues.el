@@ -26,7 +26,7 @@ Some example uses:
 ## Usage
 
 ### Installation
-`sound-cues.el` isn't on MELPA yet. For now, I recommend installing directly from GitHub with `quelpa`. Evaluate the following:
+`sound-cues.el` isn't on MELPA yet. For now, I recommend installing directly from GitHub with [Quelpa](https://framagit.org/steckerhalter/quelpa). Evaluate the following:
 ```emacs-lisp
 (package-install 'quelpa)
 (require 'quelpa)
