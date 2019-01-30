@@ -102,9 +102,14 @@ Remove cues with:
 - `failure`
 - `alert`
 - `startup`
+- `startup-2`
+- `startup-3`
 - `negative-beep`
 - `success-bells-major`
 - `success-bells-minor`
+- `ding-dong`
+- `sonar`
+- `sweep`
 - `ooh-yeah`
 - `womp-womp-trombone`
 
