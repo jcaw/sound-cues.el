@@ -111,7 +111,7 @@ If sound is a string, it will assume it is already a file path."
   (if (symbolp sound)
       (progn
         (unless (member sound sound-cues-inbuilt-sounds)
-          (user-error "`%s' is not an inbuilt sound."))
+          (user-error "`%s' is not an inbuilt sound." sound))
         (format "%s%s.wav" sound-cues--sounds-directory sound))
     sound))
 
