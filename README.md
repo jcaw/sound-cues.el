@@ -7,7 +7,11 @@ Sound cues can be attached to any function. Want to know when another package co
 
 Adding cues is easy:
 ```emacs-lisp
+;; Add to a function
 (sound-cues-add-cue function sound)
+
+;; Add to a hook
+(sound-cues-add-cue-to-hook hook sound)
 ```
 
 The sound will then play each time `function` completes.
@@ -54,19 +58,39 @@ Add sound cues to a function with:
 (sound-cues-add-cue 'another-function 'failure)   ; `failure' is another inbuilt sound
 
 ;; Use your own sound files too
-(sound-cues-add-cue 'third-function "/path/to/sound-file.wav")              
+(sound-cues-add-cue 'third-function "/path/to/sound-file.wav")
 ```
 
 The cue will play when the function completes. Note that only one sound cue may be attached to each function.
 
+
 The cue can be an inbuilt sound (pass a symbol to use an inbuilt sound) or a path to a sound file (as a string). Sound files must be in WAV format.
+
+You can also add cues to hooks:
+```emacs-lisp
+;; Inbuilt sound
+(sound-cues-add-cue-to-hook 'after-init-hook 'startup)
+
+;; Custom sound
+(sound-cues-add-cue-to-hook 'python-mode-hook "monty-python/not-the-messiah.wav")
+```
+
+You can also play sound cues on their own:
+```emacs-lisp
+;; Inbuilt sound
+(sound-cues-play-sound 'alert)
+
+;; Custom sound
+(sound-cues-play-sound "~/wilhelm-scream.wav")
+```
 
 ### Removing Cues
 
 Remove cues with:
 ```emacs-lisp
-(sound-cues-remove-cue)        ; Remove cue from one function.
-(sound-cues-remove-all-cues)   ; Remove cues from all functions.
+(sound-cues-remove-cue)           ; Remove cue from one function.
+(sound-cues-remove-cue-from-hook) ; Remove cue from a hook.
+(sound-cues-remove-all-cues)      ; Remove cues from all functions and hooks.
 ```
 
 ## Built-In Sounds
