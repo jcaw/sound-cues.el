@@ -3,8 +3,8 @@
 ;; Copyright (C) 2019  GitHub user "jcaw"
 
 ;; Author: GitHub user "jcaw" <40725916+jcaw@users.noreply.github.com>
+;; URL: https://github.com/jcaw/sound-cues.el
 ;; Keywords: multimedia
-;; Homepage: https://github.com/jcaw/sound-cues.el
 ;; Version: 0.1.0
 
 ;; Modifications can be found in the git repository.
