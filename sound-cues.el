@@ -6,6 +6,7 @@
 ;; URL: https://github.com/jcaw/sound-cues.el
 ;; Keywords: multimedia
 ;; Version: 0.1.0
+;; Package-Requires: ((emacs "25.1") (sound-wav "0.02") (cl-lib "0.5") (powershell "0.3"))
 
 ;; Modifications can be found in the git repository.
 
