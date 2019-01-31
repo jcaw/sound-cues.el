@@ -26,13 +26,15 @@ Some example uses:
 ## Usage
 
 ### Installation
-`sound-cues.el` isn't on MELPA yet. For now, I recommend installing directly from GitHub with `quelpa`. Evaluate the following:
+`sound-cues.el` isn't on MELPA yet. For now, I recommend installing directly from GitHub with [Quelpa](https://framagit.org/steckerhalter/quelpa). Evaluate the following:
 ```emacs-lisp
 (package-install 'quelpa)
 (require 'quelpa)
 (quelpa '(sound-cues
           :fetcher github
-          :repo "jcaw/sound-cues.el"))
+          :repo "jcaw/sound-cues.el"
+          ;; You have to explicitly download the sounds folder
+          :files ("*.el" "README.md" "sounds")))
 ```
 
 Then require as normal:
@@ -100,9 +102,14 @@ Remove cues with:
 - `failure`
 - `alert`
 - `startup`
+- `startup-2`
+- `startup-3`
 - `negative-beep`
 - `success-bells-major`
 - `success-bells-minor`
+- `ding-dong`
+- `sonar`
+- `sweep`
 - `ooh-yeah`
 - `womp-womp-trombone`
 
