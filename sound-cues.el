@@ -4,8 +4,9 @@
 
 ;; Author: GitHub user "jcaw" <40725916+jcaw@users.noreply.github.com>
 ;; Keywords: multimedia
-;; Modifications: Modifications can be found in the git repository:
-;;                https://github.com/jcaw/sound-cues.el
+;; Homepage: https://github.com/jcaw/sound-cues.el
+
+;; Modifications can be found in the git repository.
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
