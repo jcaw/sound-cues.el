@@ -1,6 +1,6 @@
 <h1 align=center>sound-cues.el</h1>
 
-<p align=center>Play sound cues to tell the user when things happen.</p>
+<p align=center>Use sound cues to tell the user when things happen in Emacs.</p>
 
 ---
 
