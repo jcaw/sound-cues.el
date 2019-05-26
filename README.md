@@ -1,4 +1,4 @@
-# sound-cues.el
+<center><h1>sound-cues.el</h1></center>
 
 ## Introduction
 Make Emacs play sound cues to tell the user when things happen. 
