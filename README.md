@@ -1,7 +1,12 @@
 <h1 align=center>sound-cues.el</h1>
 
+<p align=center>Play sound cues to tell the user when things happen.</p>
+
+---
+
 ## Introduction
-Make Emacs play sound cues to tell the user when things happen. 
+
+This is a small tool designed to add audio feedback to Emacs.
 
 Sound cues can be attached to any function. Want to know when another package completes a slow, asynchronous function? Just attach a sound cue to that function. Want to know when it completes a background process? Add a sound cue to the callback function. 
 
